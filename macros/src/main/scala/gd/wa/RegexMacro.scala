@@ -27,4 +27,5 @@ object RegexMacro {
     /** return the ast creating the regex */
     q"$string.r"
   }
+
 }

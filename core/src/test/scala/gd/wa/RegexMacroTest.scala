@@ -28,4 +28,5 @@ class RegexMacroTest extends FunSuite {
     assert(string match {
       case Pattern(c) => true
       case _ => false})
+
 }

@@ -19,6 +19,10 @@ object Build extends Build {
     organization := "gd.wa",
     version := "1.0.0",
     scalaVersion := "2.11.0-SNAPSHOT",
+    scalacOptions := Seq(
+      "-feature", // feature warnings
+      "-language:reflectiveCalls"
+    ),
     resolvers += Resolver.sonatypeRepo("snapshots"),
     libraryDependencies := dependencies
   )
