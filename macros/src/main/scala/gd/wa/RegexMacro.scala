@@ -19,13 +19,12 @@ object RegexMacro {
     debug(str)
 
     /** destructure the tree to get the string */
-    str match {
-      case Literal(Constant(string: String)) =>
-        /** create a regex compile time */
-        string.r
+    val Literal(Constant(string: String)) = str
 
-        /** return the ast creating the regex */
-        q"$string.r"
-    }
+    /** create a regex compile time */
+    string.r
+
+    /** return the ast creating the regex */
+    q"$string.r"
   }
 }
