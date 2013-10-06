@@ -6,19 +6,26 @@ import scala.util.matching.Regex
 
 object Macros {
 
+  def regex(str: String): Regex = macro regexImpl
+
   def regexImpl(c: Context)
-               (str: c.Expr[String]) = {
+               (str: c.Tree) = {
 
     import c.universe._
 
-    println(showRaw(str))
+    /** prints ast for expression */
+    def debug(expr: c.Tree) = println(showRaw(expr))
 
+    debug(str)
+
+    /** destructure the tree to get the string */
     str match {
-      case Expr(Literal(Constant(string: String))) =>
+      case Literal(Constant(string: String)) =>
+        /** create a regex compile time */
         string.r
-        reify { str.splice.r }
+
+        /** return the ast creating the regex */
+        q"$string.r"
     }
   }
-
-  def regex(str: String): Regex = macro regexImpl
 }
