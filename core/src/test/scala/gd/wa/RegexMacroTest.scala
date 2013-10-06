@@ -3,9 +3,9 @@ package gd.wa
 import org.scalatest.FunSuite
 import scala.util.matching.Regex
 
-class MacroTest extends FunSuite {
+class RegexMacroTest extends FunSuite {
 
-  import Macros._
+  import RegexMacro._
 
   test ("verifies regexes compile time") {
     //regex("[a-z") // Does not compile

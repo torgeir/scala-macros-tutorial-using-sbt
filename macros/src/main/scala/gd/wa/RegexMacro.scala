@@ -4,7 +4,7 @@ import scala.reflect.macros.Context
 import language.experimental.macros
 import scala.util.matching.Regex
 
-object Macros {
+object RegexMacro {
 
   def regex(str: String): Regex = macro regexImpl
 
