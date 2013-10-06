@@ -15,30 +15,23 @@ object Build extends Build {
     "org.scalatest" % "scalatest_2.11.0-M5" % "2.0.M7" % "test"
   )
 
-  val commonSettings = Project.defaultSettings ++ Seq(
+  val theSettings = Project.defaultSettings ++ Seq(
+    organization := "gd.wa",
+    version := "1.0.0",
     scalaVersion := "2.11.0-SNAPSHOT",
     resolvers += Resolver.sonatypeRepo("snapshots"),
     libraryDependencies := dependencies
   )
 
-  lazy val macros = Project(
-    id = "macros",
-    base = file("macros"),
-    settings = macroSettings ++ Seq(
+  lazy val macros = Project("macros", file("macros"), settings = theSettings ++ macroSettings ++
+    Seq(
       libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _),
       libraryDependencies ++= dependencies
-    )
-  )
+    ))
 
-  lazy val core: Project = Project(
-    "core",
-    file("core"),
-    settings = commonSettings)
+  lazy val core = Project("core", file("core"), settings = theSettings)
     .dependsOn(macros)
 
-  lazy val root = Project(
-    id = "root-project",
-    base = file("."),
-    settings = commonSettings)
+  lazy val root = Project("root", file("."), settings = theSettings)
     .aggregate(macros, core)
 }
